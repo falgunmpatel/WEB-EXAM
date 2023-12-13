@@ -1,0 +1,212 @@
+<% layout('layouts/boilerplate') -%> <%- include('../partials/flash') %>
+<section class="grid grid-cols-2 mx-auto max-w-6xl mt-12">
+  <div
+    class="max-w-md p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 h-screen"
+  >
+    <img src="<%=product.img%>" class="card-img-top" alt="item image" />
+    <a href="#">
+      <h5
+        class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+      >
+        <%= product.name %>
+      </h5>
+    </a>
+    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+      <%= product.desc %>
+    </p>
+    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+      <%= product.price %>
+    </p>
+    <div class="flex flex-row gap-2">
+      <form
+        class="d-inline-block"
+        action="/user/<%=product._id%>/add"
+        method="post"
+      >
+        <button
+          type="submit"
+          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Buy
+        </button>
+      </form>
+      <form
+        class="d-inline-block"
+        action="/user/<%=product._id%>/add"
+        method="post"
+      >
+        <button
+          type="submit"
+          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Add To Cart
+        </button>
+      </form>
+      <% if(currentUser && currentUser.role ==='seller') {%>
+      <a
+        href="/products/<%=product._id%>/edit"
+        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-yellow-700 rounded-lg hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Edit
+      </a>
+      <form
+        class="d-inline-block"
+        action="/products/<%=product._id%>?_method=DELETE"
+        method="post"
+      >
+        <button
+          type="submit"
+          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Delete
+        </button>
+      </form>
+      <% } %>
+    </div>
+  </div>
+  <div class="flex flex-col gap-4" > 
+    <form
+      class="max-w-2xl p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+      action="/products/<%=product._id%>/review"
+      method="POST"
+    >
+        <div class="font-semibold text-2xl w-full">Leave Your Review</div>
+      <fieldset>
+        <legend class="sr-only">Review</legend>
+        <div class="flex gap-4 my-8">
+          <div class="flex items-center mb-4">
+            <input
+              type="radio"
+              id="no-rate"
+              class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+              name="rating"
+              value="0"
+              checked
+              aria-label="No rating."
+              hidden
+            />
+          </div>
+          <div class="flex items-center mb-4">
+            <input
+              type="radio"
+              id="first-rate1"
+              name="rating"
+              value="1"
+              class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="first-rate1"
+              title="Terrible"
+              class="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >1 star</label
+            >
+          </div>
+          <div class="flex items-center mb-4">
+            <input
+              type="radio"
+              id="first-rate2"
+              name="rating"
+              value="2"
+              class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="first-rate2"
+              title="Not good"
+              class="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >2 stars</label
+            >
+          </div>
+          <div class="flex items-center mb-4">
+            <input
+              type="radio"
+              id="first-rate3"
+              name="rating"
+              value="3"
+              class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="first-rate3"
+              title="Average"
+              class="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >3 stars</label
+            >
+          </div>
+          <div class="flex items-center mb-4">
+            <input
+              type="radio"
+              id="first-rate4"
+              name="rating"
+              value="4"
+              class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="first-rate4"
+              title="Very good"
+              class="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >4 stars</label
+            >
+          </div>
+          <div class="flex items-center mb-4">
+            <input
+              type="radio"
+              id="first-rate5"
+              name="rating"
+              value="5"
+              class="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label
+              for="first-rate5"
+              title="Amazing"
+              class="block ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >5 stars</label
+            >
+          </div>
+        </div>
+      </fieldset>
+      <div class="mb-3">
+        <label
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          for="desc"
+          >Description</label
+        >
+        <textarea
+          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          name="comment"
+          id="desc"
+          rows="3"
+          required
+        ></textarea>
+      </div>
+      <button
+        type="submit"
+        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Submit
+      </button>
+    </form>
+
+    <%for(let review of product.reviews){%>
+    <div
+      class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+    >
+      <a href="#">
+        <h5
+          class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          data-rating="<%=review.rating%>"
+        >
+          Rated: <%=review.rating%> stars
+        </h5>
+      </a>
+      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+        <%=review.desc%>
+      </p>
+      <a
+        href="#"
+        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Delete
+      </a>
+    </div>
+    <%}%>
+  </div>
+</section>
